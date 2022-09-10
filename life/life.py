@@ -89,3 +89,39 @@ class Game:
         pyplot.clf()
         pyplot.matshow(self.board, fignum=0, cmap='binary')
         pyplot.show()
+
+
+class Pattern:
+
+    """Class that generates patterns for the game of life"""
+    def __init__(self, array):
+        """Takes initial numpy array as pattern."""
+        if not isinstance(array, np.ndarray):
+            raise ValueError("Not a Numpy array!")
+        self.grid = array
+
+    def flip_vertical(self):
+        """Takes a pattern and mirros along along x-axis."""
+        return self.grid[::-1, :]
+
+    def flip_horizontal(self):
+        """Takes pattern and mirrors along y-axis."""
+        return self.grid[:, ::-1]
+
+    def flip_diag(self):
+        """Transpose of the pattern."""
+        return self.grid.T
+
+    def rotate(self, n):
+        """Rotates pattern n * 90 degrees."""
+        if n % 4 == 0:
+            return self.grid
+        elif n % 4 == 1:
+            rot90 = self.grid[:, ::-1]
+            return rot90.T
+        elif n % 4 == 2:
+            rot180 = self.grid[:, ::-1]
+            return rot180[::-1, :]
+        else:
+            rot270 = self.grid[::-1, :]
+            return rot270.T
