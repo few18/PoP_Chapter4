@@ -55,7 +55,7 @@ class Game:
     """Define the game of life."""
 
     def __init__(self, size):
-        """Initialises size of board."""
+        """Initialise size of board."""
         self.board = np.zeros((size, size))
 
     def play(self):
@@ -89,6 +89,18 @@ class Game:
         pyplot.clf()
         pyplot.matshow(self.board, fignum=0, cmap='binary')
         pyplot.show()
+
+    def insert(self, pattern, square):
+        """Insert new pattern to board."""
+        if not isinstance(pattern, Pattern):
+            raise ValueError("Please enter a pattern!")
+
+        if not (len(square) == 2):
+            raise ValueError("Please enter valid location!")
+
+        x = square[0]
+        y = square[1]
+        self.board[x-1:x+2, y-1:y+2] = pattern.grid
 
 
 class Pattern:
