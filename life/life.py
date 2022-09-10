@@ -1,4 +1,4 @@
-"""Module that defines class for playing game of life."""
+"""Define class for game of life and patterns."""
 
 import numpy as np
 from matplotlib import pyplot
@@ -52,14 +52,14 @@ glider_gun = np.array([
 
 
 class Game:
-    """Class defining the game of life."""
+    """Define the game of life."""
 
     def __init__(self, size):
         """Initialises size of board."""
         self.board = np.zeros((size, size))
 
     def play(self):
-        """Starts the game."""
+        """Start the game."""
         print("Playing life. Press ctrl + c to stop.")
         pyplot.ion()
         while True:
@@ -68,7 +68,7 @@ class Game:
             pyplot.pause(0.0000005)
 
     def move(self):
-        """Defines what a move does."""
+        """Define what a move does."""
         stencil = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
         neighbour_count = convolve2d(self.board, stencil, mode='same')
 
@@ -81,39 +81,39 @@ class Game:
                     self.board = 0
 
     def __setitem__(self, key, value):
-        """Sets the value of a square on the board."""
+        """Set the value of a square on the board."""
         self.board[key] = value
 
     def show(self):
-        """Prints out the game graphically."""
+        """Print out the game graphically."""
         pyplot.clf()
         pyplot.matshow(self.board, fignum=0, cmap='binary')
         pyplot.show()
 
 
 class Pattern:
-    """Class that generates patterns for the game of life."""
+    """Generate patterns for the game of life."""
 
     def __init__(self, array):
-        """Takes initial numpy array as pattern."""
+        """Take initial numpy array as pattern."""
         if not isinstance(array, np.ndarray):
             raise ValueError("Not a Numpy array!")
         self.grid = array
 
     def flip_vertical(self):
-        """Takes a pattern and mirros along along x-axis."""
+        """Take a pattern and mirror along along x-axis."""
         return self.grid[::-1, :]
 
     def flip_horizontal(self):
-        """Takes pattern and mirrors along y-axis."""
+        """Take pattern and mirror along y-axis."""
         return self.grid[:, ::-1]
 
     def flip_diag(self):
-        """Transpose of the pattern."""
+        """Transpose the pattern."""
         return self.grid.T
 
     def rotate(self, n):
-        """Rotates pattern n * 90 degrees."""
+        """Rotate pattern n * 90 degrees."""
         if n % 4 == 0:
             return self.grid
         elif n % 4 == 1:
