@@ -52,14 +52,14 @@ glider_gun = np.array([
 
 
 class Game:
-
     """Class defining the game of life."""
-    def __init__(game, size):
+
+    def __init__(self, size):
         """Initialises size of board."""
-        game.board = np.zeros((size, size))
+        self.board = np.zeros((size, size))
 
     def play(self):
-        """Start the game."""
+        """Starts the game."""
         print("Playing life. Press ctrl + c to stop.")
         pyplot.ion()
         while True:
@@ -69,8 +69,8 @@ class Game:
 
     def move(self):
         """Defines what a move does."""
-        STENCIL = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
-        neighbour_count = convolve2d(self.board, STENCIL, mode='same')
+        stencil = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
+        neighbour_count = convolve2d(self.board, stencil, mode='same')
 
         for i in range(self.board.shape[0]):
             for j in range(self.board.shape[1]):
@@ -92,8 +92,8 @@ class Game:
 
 
 class Pattern:
+    """Class that generates patterns for the game of life."""
 
-    """Class that generates patterns for the game of life"""
     def __init__(self, array):
         """Takes initial numpy array as pattern."""
         if not isinstance(array, np.ndarray):
